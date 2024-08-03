@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors'
 import authRouter from './routes/auth.route.js'
 import {connectDb} from './dbConnect/connect.js'
+import {createtask} from './controllers/task.controller.js'
 dotenv.config(); //dotenv configuration
 
 connectDb()
@@ -16,6 +17,7 @@ app.get('/',(req,res)=>{
 })
 
 app.use('/api/auth',authRouter)
+app.post('/api/tasks',createtask)/
 
 app.listen(process.env.PORT || 3000,()=>{
     console.log(`Server is listening on port ${process.env.PORT}`);
