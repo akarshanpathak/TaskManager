@@ -7,8 +7,8 @@ import { IoCheckmarkDoneCircle } from "react-icons/io5"
 import { MdPending } from "react-icons/md";
 function DashBoard() {
   return (
-    <div>
-        <h1 className='font-semibold text-3xl self-center text-center'>Task Details</h1>
+    <div className='ml-5'>
+        <h1 className='font-semibold  text-3xl self-center text-center'>Task Details</h1>
       <div className="mt-4 p-2 flex flex-wrap  gap-10 fl">
         <div className='flex flex-col p-3 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md'>
           <div className='flex justify-between'>
