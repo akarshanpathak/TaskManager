@@ -42,7 +42,7 @@ function Home() {
         <div className="hidden lg:inline shadow-md shadow-gray-800 border-blue-300 min-h-screen min-w-[20%]">
           <SideBar/>
         </div>
-        <div className="lg:w-[80%]">
+        <div className="lg:w-[80%] w-full">
           
            {tab==="dashboard" &&  
             <>
