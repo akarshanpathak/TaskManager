@@ -1,3 +1,4 @@
+import mongoose from 'mongoose'
 import Task from '../models/task.model.js'
 export const createtask=async(req,res)=>{
     const {title,status,content,userId}=req.body
@@ -83,3 +84,24 @@ export const updateTask=async(req,res)=>{
         
     }
 }
+
+
+export const getUserTask = async (req, res) => {
+    const { userId } = req.params;
+    const startIndex=parseInt(req.query.startIndex) || 0;
+    const limit=parseInt(req.query.limit) || 3
+  
+    try {
+      
+    
+      const tasks = await Task.find({ userId}).skip(startIndex).limit(limit)
+       if (tasks.length === 0) {
+        return res.status(404).json({ error: 'No tasks found for this user' });
+      }
+  
+      res.status(200).json(tasks);
+    } catch (error) {
+      console.error('Error fetching tasks:', error);
+      res.status(500).json({ error: 'Server error' });
+    }
+  };

@@ -1,6 +1,10 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 function RecentTask() {
+  const {currentUser}=useSelector(state=>state.user)
+  console.log(currentUser);
+  
   return (
     <div className='mt-4'>
       <h1 className='font-semibold text-center text-3xl'>Recent Tasks</h1>
@@ -22,7 +26,7 @@ function RecentTask() {
               <tr className='border-b'>
                 <td className='p-4'>1</td>
                 <td className='p-4'>Todo app</td>
-                <td className='p-4'>Create an app</td>
+                <td className='p-4'>content of task1</td>
                 <td className='p-4'>Pending</td>
                 <td className='p-4'>{new Date().toLocaleDateString()}</td>
                 <td className='p-4'><button className='border-[1px] border-blue-300 rounded-xl hover:bg-blue-300 cursor-pointer font-semibold px-4 py-2'>Edit</button></td>
