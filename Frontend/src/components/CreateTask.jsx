@@ -1,11 +1,15 @@
 import React, { useState } from 'react'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { json } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 function CreateTask() {
     const [value, setValue] = useState('');
     const [formData,setFormData]=useState(null)
     const [error,setError]=useState(null)
+    const navigate=useNavigate()
+    const location=useLocation()
+    const urlParams=new URLSearchParams(location.search)
     const handleChange=(e)=>{
           setFormData({...formData,[e.target.id]:e.target.value})
         //   console.log(formData);
@@ -28,6 +32,8 @@ function CreateTask() {
             if(res.ok){
                 console.log(data);
                 setError(null)
+                // urlParams.set("tab","task")
+                navigate(`/?tab=task&id=${data._id}`)
             }
         } catch (error) {
             console.log(error);

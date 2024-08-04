@@ -31,3 +31,14 @@ export const createtask=async(req,res)=>{
         
     }
 }
+
+export const getTask=async(req,res)=>{
+    const taskId=req.params.taskId 
+    console.log(taskId);
+    const task=await Task.findById(taskId)
+
+    if(!task){
+        res.status(401).json({message:"No such task exists",success:false})
+    }
+    res.status(201).json(task)
+}

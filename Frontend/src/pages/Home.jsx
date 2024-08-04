@@ -8,9 +8,10 @@ import SideBar from "../components/SideBar";
 import  {useLocation} from "react-router-dom"
 import { set } from "mongoose";
 import CreateTask from "../components/CreateTask";
+import Task from "../components/Task";
 function Home() {
   const [showMenu, setShowMenu] = useState(false);
-  const [tab,setTab]=useState(null)
+  const [tab,setTab]=useState("dashboard")
   const handleShowMenu = () => {
     setShowMenu((prev) => !prev);
   };
@@ -53,6 +54,9 @@ function Home() {
            }
            {
             tab==="create-task" && <CreateTask/>
+           }
+           {
+            tab==="task" && <Task/>
            }
         </div>
       </div>
