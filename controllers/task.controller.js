@@ -33,12 +33,32 @@ export const createtask=async(req,res)=>{
 }
 
 export const getTask=async(req,res)=>{
-    const taskId=req.params.taskId 
-    console.log(taskId);
-    const task=await Task.findById(taskId)
+   try {
+     const taskId=req.params.taskId 
+     console.log(taskId);
+     const task=await Task.findById(taskId)
+ 
+     if(!task){
+         res.status(401).json({message:"No such task exists",success:false})
+     }
+     res.status(201).json(task)
+   } catch (error) {
+    console.log(error);
+    
+   }
+}
 
-    if(!task){
-        res.status(401).json({message:"No such task exists",success:false})
+
+export const deleteTask=async(req,res)=>{
+    try {
+        const taskId=req.params.taskId
+        const task=await Task.findByIdAndDelete(taskId)
+        if(!task){
+            return res.status(401).json({message:"You can not delete this task",success:false})
+        }
+        res.status(201).json({message:"Task deleted successfully"})
+    } catch (error) {
+        console.log(error)
+        
     }
-    res.status(201).json(task)
 }

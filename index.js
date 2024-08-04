@@ -5,7 +5,7 @@ import cors from 'cors'
 import authRouter from './routes/auth.route.js'
 import {connectDb} from './dbConnect/connect.js'
 
-import {createtask, getTask} from './controllers/task.controller.js'
+import {createtask, deleteTask, getTask} from './controllers/task.controller.js'
 dotenv.config(); //dotenv configuration
 
 connectDb()
@@ -20,6 +20,7 @@ app.get('/',(req,res)=>{
 app.use('/api/auth',authRouter)
 app.post('/api/tasks',createtask)
 app.get("/api/task/:taskId",getTask)
+app.delete("/api/task/:taskId",deleteTask)
 
 app.listen(process.env.PORT || 3000,()=>{
     console.log(`Server is listening on port ${process.env.PORT}`);
