@@ -10,6 +10,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import CreateTask from "../components/CreateTask";
 import Task from "../components/Task";
 import EditTask from "../components/EditTask";
+import AllTask from "../components/AllTask";
 
 function Home() {
   const [showMenu, setShowMenu] = useState(false);
@@ -56,6 +57,7 @@ function Home() {
           {tab === "create-task" && <CreateTask />}
           {tab === "task" && <Task />}
           {tab === "edit-task" && <EditTask />}
+          {tab === "all-task" && <AllTask />}
         </div>
       </div>
     </div>
