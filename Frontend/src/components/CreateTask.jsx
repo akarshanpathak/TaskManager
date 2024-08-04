@@ -1,11 +1,20 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+
 function CreateTask() {
+    const {currentUser}=useSelector(state=>state.user)
+    // console.log( "current user is",currentUser);
+    
     const [value, setValue] = useState('');
     const [formData,setFormData]=useState(null)
+    useEffect(()=>{
+      setFormData({...formData,userId:currentUser._id})
+
+    },[currentUser])
     const [error,setError]=useState(null)
     const navigate=useNavigate()
     const location=useLocation()
@@ -50,6 +59,7 @@ function CreateTask() {
       <div className="flex gap-5 mt-5">
         <label htmlFor="" className='text-2xl'>Choose Status:</label>
         <select onChange={handleChange} className='bg-transparent border-[1px] rounded-lg p-2 border-blue-300' name="" id="status">
+        <option className='bg-none text-black' value="pending">Select Status</option>
         <option className='bg-none text-black' value="pending">Pending</option>
         <option className='bg-none text-black' value="complete">Complete</option>
         

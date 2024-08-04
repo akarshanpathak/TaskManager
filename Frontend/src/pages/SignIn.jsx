@@ -21,7 +21,7 @@ function SignIn() {
     const handleSubmit=async (e)=>{
         e.preventDefault()
         try {
-            dispatch(signInStart())
+           dispatch(signInStart())
             const res=await fetch("/api/auth/signin",{
                 method:'POST',
                 headers:{
@@ -35,6 +35,8 @@ function SignIn() {
             }
 
             if(res.ok){
+                console.log("dispatched");
+                
                 dispatch(signInSuccess(data))
                 navigate('/')
 

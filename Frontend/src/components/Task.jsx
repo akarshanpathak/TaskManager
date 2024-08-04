@@ -54,6 +54,9 @@ function Task({ data }) {
         
     }
   }
+  const handleEdit=()=>{
+    navigate(`/?tab=edit-task&id=${taskDetail._id}`)
+  }
   if (error) {
     return (
       <div className='h-screen flex items-center justify-center'>
@@ -87,7 +90,7 @@ function Task({ data }) {
       <hr className="w-full my-4 border-gray-500" />
       <div className="m-2">
         <button onClick={handleDelete} className='ml-5 text-lg border-[1px] px-3 py-2 border-blue-300 rounded-xl hover:bg-blue-300'>Delete Task</button>
-        <button className='ml-5 text-lg border-[1px] px-3 py-2 border-blue-300 rounded-xl hover:bg-blue-300'>Edit Task</button>
+        <button onClick={handleEdit} className='ml-5 text-lg border-[1px] px-3 py-2 border-blue-300 rounded-xl hover:bg-blue-300'>Edit Task</button>
       </div>
       {
         deletedSuccessfully && <div className='mt-5 border-[1px] border-blue-300 px-3 py-2 '>

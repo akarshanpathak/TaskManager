@@ -1,28 +1,40 @@
-import React from 'react'
+import React from 'react';
 
 function RecentTask() {
   return (
     <div className='mt-4'>
       <h1 className='font-semibold text-center text-3xl'>Recent Tasks</h1>
-      <div className="flex justify-center items-center">
-      <table className='mt-[3vh] shadow-gray-800 flex flex-col overflow-y-scroll justify-center items-center'>
-        <thead className='flex overflow-y-scroll sm:gap-20 gap-[15vw]   '>
-            <tr className=''>S no.</tr>
-            <tr className=''>Title</tr> 
-            <tr className=''>Content</tr>
-            <tr className=''>Status</tr>
-        </thead>
-        <tbody className='flex justify-around overflow-y-scroll  gap-[15vw] sm:gap-20 ml-[2vh] mt-[2vh]'>
-            <tb className=''>1</tb>
-            <tb className=''>Todo app</tb>
-            <tb className=''>Create a app</tb>
-            <tb className=''>Pending</tb>
-        </tbody>
-       
-      </table>
+      <div className='flex justify-center items-center'>
+        <div className='w-full max-w-4xl overflow-x-auto'>
+          <table className='mt-6 shadow-md w-full table-auto'>
+            <thead className='bg-blue-300'>
+              <tr className='text-left'>
+                <th className='p-4'>S no.</th>
+                <th className='p-4'>Title</th>
+                <th className='p-4'>Content</th>
+                <th className='p-4'>Status</th>
+                <th className='p-4'>Created At</th>
+                <th className='p-4'>Edit</th>
+                <th className='p-4'>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className='border-b'>
+                <td className='p-4'>1</td>
+                <td className='p-4'>Todo app</td>
+                <td className='p-4'>Create an app</td>
+                <td className='p-4'>Pending</td>
+                <td className='p-4'>{new Date().toLocaleDateString()}</td>
+                <td className='p-4'><button className='border-[1px] border-blue-300 rounded-xl hover:bg-blue-300 cursor-pointer font-semibold px-4 py-2'>Edit</button></td>
+                <td className='p-4'><button className='border-[1px] border-red-300 rounded-xl hover:bg-red-800 cursor-pointer font-semibold px-4 py-2'>Delete</button></td>
+              </tr>
+              {/* Add more rows as needed */}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default RecentTask
+export default RecentTask;
