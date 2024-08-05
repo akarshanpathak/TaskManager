@@ -5,19 +5,21 @@ import { RxCross2 } from "react-icons/rx";
 import DashBoard from "../components/DashBoard";
 import RecentTask from "../components/RecentTask";
 import SideBar from "../components/SideBar";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import CreateTask from "../components/CreateTask";
 import Task from "../components/Task";
 import EditTask from "../components/EditTask";
 import AllTask from "../components/AllTask";
+import About from "../components/About";
+import { useSelector } from "react-redux";
 
 function Home() {
   const [showMenu, setShowMenu] = useState(false);
   const [tab, setTab] = useState("dashboard");
   const location = useLocation();
   const navigate = useNavigate();
-
+  const {currentUser}=useSelector(state=>state.user)
   const handleShowMenu = () => {
     setShowMenu((prev) => !prev);
   };
@@ -32,6 +34,16 @@ function Home() {
     setTab(tabFromUrl);
   }, [location.search, navigate]);
 
+
+  if(!currentUser){
+    return(
+       <div className="w-full h-screen flex-col flex justify-center items-center bg-slate-900 text-white font-semibold
+       text-3xl">
+             <p>Sign in First to use our services</p>
+             <Link to="/signin"><button className="px-4 py-3 rounded-xl border-[1px] border-blue-300 hover:bg-blue-300 mt-5">Sign In</button></Link>
+       </div>
+    )
+  }
   return (
     <div className="bg-slate-900 box-border min-h-screen w-full text-white">
       <div className="flex justify-between items-center p-4">
@@ -58,6 +70,7 @@ function Home() {
           {tab === "task" && <Task />}
           {tab === "edit-task" && <EditTask />}
           {tab === "all-task" && <AllTask />}
+          {tab === "about" && <About />}
         </div>
       </div>
     </div>

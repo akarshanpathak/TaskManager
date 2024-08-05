@@ -6,17 +6,22 @@ import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
 import { BrowserRouter,Route,Routes } from 'react-router-dom'
 import Home from './pages/Home'
+import RouteNotFound from './components/RouteNotFound'
+
 function App() {
   const [count, setCount] = useState(0)
-
+  
+  
+  
   return (
     <BrowserRouter>
       <Routes>
 
         <Route path='/signup' element={<SignUp/>}/>
         <Route path='/signin' element={<SignIn/>}/>
-        <Route path='/' element={<Home/>}/>
+       <Route path='/' element={<Home/>}/>
 
+       <Route path="*" element={<RouteNotFound />} />
         
       </Routes>
     </BrowserRouter>
