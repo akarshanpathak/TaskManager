@@ -11,7 +11,7 @@ export const createtask=async(req,res)=>{
         })
     }
     try {
-        const verify=await Task.findOne({title})
+        const verify=await Task.findOne({title,userId})
         if(verify){
             return res.status(401).json({
                 message:" This Title already exists",
@@ -86,22 +86,53 @@ export const updateTask=async(req,res)=>{
 }
 
 
+
+
 export const getUserTask = async (req, res) => {
-    const { userId } = req.params;
-    const startIndex=parseInt(req.query.startIndex) || 0;
-    const limit=parseInt(req.query.limit) || 3
-  
-    try {
-      
-    const length=await Task.countDocuments()
-      const tasks = await Task.find({ userId}).skip(startIndex).limit(limit)
-       if (tasks.length === 0) {
-        return res.status(404).json({ message: 'No tasks found for this user' });
-      }
-  
-      res.status(200).json({tasks,length});
-    } catch (error) {
-      console.error('Error fetching tasks:', error);
-      res.status(500).json({ error: 'Server error' });
+  const { userId } = req.params;
+  const startIndex = parseInt(req.query.startIndex) || 0;
+  const limit = parseInt(req.query.limit) || 3;
+
+  try {
+    // Count tasks specifically for the given user
+    const length = await Task.countDocuments({ userId });
+
+    // Find tasks for the given user with pagination and sorting by creation date (most recent first)
+    const tasks = await Task.find({ userId })
+      .sort({ createdAt: -1 })
+      .skip(startIndex)
+      .limit(limit);
+
+    if (tasks.length === 0) {
+      return res.status(404).json({ message: 'No tasks found for this user' });
     }
-  };
+
+    res.status(200).json({ tasks, length });
+  } catch (error) {
+    console.error('Error fetching tasks:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
+
+
+
+export const getStats = async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const totalTasks = await Task.countDocuments({ userId });
+    const completedTasks = await Task.countDocuments({ userId, status: 'complete' });
+    const pendingTasks = await Task.countDocuments({ userId, status: 'pending' });
+
+    // Logging to check if the counts are correct
+    console.log('Total Tasks:', totalTasks);
+    console.log('Completed Tasks:', completedTasks);
+    console.log('Pending Tasks:', pendingTasks);
+
+    res.status(200).json({ totalTasks, completedTasks, pendingTasks });
+  } catch (error) {
+    console.error('Error fetching task statistics:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+};

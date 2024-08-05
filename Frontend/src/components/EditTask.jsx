@@ -6,16 +6,18 @@ import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 
 function EditTask() {
+    const { currentUser } = useSelector(state => state.user);
     const [formData, setFormData] = useState({ title: '', status: 'pending', content: '' });
     const [error, setError] = useState(null);
     const navigate = useNavigate();
     const location = useLocation();
     const urlParams = new URLSearchParams(location.search);
-    const {currentUser}=useSelector(state=>state.user)
     const id = urlParams.get("id");
-    useEffect(()=>{
-        setFormData({...formData,userId:currentUser._id})
-    },[currentUser])
+
+    useEffect(() => {
+        setFormData(prevData => ({ ...prevData, userId: currentUser?._id }));
+    }, [currentUser]);
+
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.id]: e.target.value });
     };
@@ -61,53 +63,54 @@ function EditTask() {
                 setError(data.message);
             } else {
                 setError(null);
-                
                 navigate(`/?tab=task&id=${data._id}`);
             }
         } catch (error) {
             console.error(error);
+            setError("An error occurred while updating the task.");
         }
     };
 
     return (
-        <div className='flex w-full flex-col items-center justify-center'>
-            <h1 className='text-center text-3xl mb-2'>Update Task</h1>
-            <form onSubmit={handleSubmit} className='flex mt-5 items-center justify-center flex-col'>
-                <div className='flex mt-5 items-center justify-center'>
-                    <label htmlFor="title" className='text-2xl'>Title:</label>
+        <div className='flex w-full flex-col items-center justify-center p-5'>
+            <h1 className='text-center text-3xl mb-5 font-semibold  '>Update Task</h1>
+            <form onSubmit={handleSubmit} className='flex flex-col items-center bg-gray-800 dark:bg-gray-900 p-5 rounded-lg shadow-lg w-full max-w-lg'>
+                <div className='flex flex-col w-full mb-5'>
+                    <label htmlFor="title" className='text-xl mb-2 text-white '>Title:</label>
                     <input
                         value={formData.title}
                         id='title'
                         onChange={handleChange}
-                        className='border-[1px] border-blue-300 rounded-lg bg-transparent px-2 py-3 ml-2'
+                        className='border-2 border-blue-300 rounded-lg px-3 py-2 w-full text-white  bg-transparent '
                         type="text"
                         placeholder='Enter title of Task'
                     />
                 </div>
-                <div className="flex gap-5 mt-5">
-                    <label htmlFor="status" className='text-2xl'>Choose Status:</label>
+                <div className='flex flex-col w-full mb-5'>
+                    <label htmlFor="status" className='text-xl mb-2 text-white dark:text-gray-100'>Choose Status:</label>
                     <select
                         value={formData.status}
                         onChange={handleChange}
-                        className='bg-transparent border-[1px] rounded-lg p-2 border-blue-300'
                         id="status"
+                        className='border-2 border-blue-300 rounded-lg px-3 py-2 w-full text-white dark:text-white bg-transparent dark:bg-gray-800'
                     >
-                        <option className='bg-none text-black' value="pending">Pending</option>
-                        <option className='bg-none text-black' value="complete">Complete</option>
+                        <option className='bg-none text-black dark:text-white' value="pending">Pending</option>
+                        <option className='bg-none text-black dark:text-white' value="complete">Complete</option>
                     </select>
                 </div>
-                <div className="mt-5">
+                <div className="w-full mb-5">
                     <ReactQuill
                         value={formData.content}
                         placeholder='Write description of the task'
-                        className='h-72 mb-12 md:w-[50vw]'
+                        className='h-72 mb-12 w-full bg-transparent dark:bg-gray-800'
                         theme="snow"
                         onChange={handleQuillChange}
+                        style={{ color: 'white' }} // Ensure text color is white
                     />
                 </div>
-                <button type='submit' className='border-2 hover:bg-blue-300 cursor-pointer border-blue-300 px-6 py-2 font-semibold text-lg rounded-lg mt-4 mb-2'>Update Task</button>
+                <button type='submit' className='bg-blue-300 text-white font-semibold px-6 py-2 rounded-lg shadow-md hover:bg-blue-400 transition duration-300'>Update Task</button>
                 {error && (
-                    <div className='mt-5 py-3 border-[1px] border-blue-300 px-2 font-semibold text-red-700'>
+                    <div className='mt-5 py-3 border-2 border-red-300 bg-red-100 px-2 font-semibold text-red-700 rounded-lg'>
                         {error}
                     </div>
                 )}

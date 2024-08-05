@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom'; // Assuming you're using react-router
-
+import { useNavigate } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
 function AllTask() {
   const { currentUser } = useSelector(state => state.user);
   const [error, setError] = useState(null);
@@ -9,8 +9,7 @@ function AllTask() {
   const [startIndex, setStartIndex] = useState(0);
   const [length, setLength] = useState(0);
   const [deletedSuccessfully, setDeletedSuccessfully] = useState(null);
-  const navigate = useNavigate(); // React Router navigate function
-
+  const navigate = useNavigate(); 
   useEffect(() => {
     const fetchTask = async () => {
       try {
@@ -20,7 +19,7 @@ function AllTask() {
         if (res.ok) {
           setTasks(data.tasks);
           setLength(data.length);
-          setStartIndex(3); // Set to the limit value to track the number of tasks fetched
+          setStartIndex(3); 
         } else {
           setError(data.message);
         }
@@ -58,7 +57,7 @@ function AllTask() {
         setDeletedSuccessfully(data.message);
         setTimeout(() => {
           setTasks(tasks.filter(task => task._id !== taskId));
-          setDeletedSuccessfully(null); // Reset the deleted success message
+          setDeletedSuccessfully(null); 
         }, 600);
       } else {
         setError(data.message);
@@ -89,11 +88,11 @@ function AllTask() {
                 {tasks && tasks.map((val, idx) => (
                   <tr key={val._id} className='border-b'>
                     <td className='p-4'>{idx + 1}</td>
-                    <td className='p-4'>{val.title}</td>
+                    <Link to={`/?tab=task&id=${val._id}`}><td className='p-4 mt-2 hover:underline hover:text-blue-300'>{val.title}</td></Link>
                     <td className='p-4'>{val.status}</td>
                     <td className='p-4'>{new Date(val.createdAt).toLocaleDateString()}</td>
                     <td className='p-4'>
-                      <button className='border-[1px] border-blue-300 rounded-xl hover:bg-blue-300 cursor-pointer font-semibold px-4 py-2'>Edit</button>
+                      <button onClick={()=>{navigate(`/?tab=edit-task&id=${val._id}`)}} className='border-[1px] border-blue-300 rounded-xl hover:bg-blue-300 cursor-pointer font-semibold px-4 py-2' >Edit</button>
                     </td>
                     <td className='p-4'>
                       <button

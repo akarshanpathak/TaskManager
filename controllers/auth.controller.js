@@ -80,3 +80,15 @@ export const signin =async (req,res)=>{
   }
  
 }
+
+
+
+export const signout = async (req, res, next) => {
+  try {
+      // Clear the cookie named 'access_token'
+      res.status(200).clearCookie('access_token').json({ message: "Signout successful", success: true });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Signout failed", success: false });
+  }
+};
