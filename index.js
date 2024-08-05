@@ -15,9 +15,7 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 // app.use(cors()); 
-app.get('/', (req, res) => {
-    res.send("test route");
-});
+
 
 app.use('/api/auth', authRouter); 
 app.post('/api/tasks', createtask);
