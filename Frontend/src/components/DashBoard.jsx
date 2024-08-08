@@ -31,59 +31,64 @@ function DashBoard() {
   }, [currentUser]);
 
   return (
-    <div className='ml-5'>
-      <h1 className='font-semibold text-3xl self-center text-center'>Task Details</h1>
-      <div className="mt-4 p-2 flex flex-wrap gap-10">
-        <div className='flex flex-col p-3 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md'>
-          <div className='flex justify-between'>
-            <div className=''>
-              <h3 className='text-gray-500 text-md uppercase'>Total Tasks</h3>
-              <p className='text-2xl'>{stats.totalTasks}</p>
+    <div className='p-6 bg-transparent  '>
+      <h1 className='text-3xl font-semibold text-white text-center mb-6'>Task Details</h1>
+      <div className="flex flex-wrap gap-6 justify-center mb-5 bg-transparent">
+        {/* Total Tasks Card */}
+        <div className='bg-gradient-to-r from-blue-700 via-blue-600 to-blue-500 p-6 rounded-xl border-2 border-blue-300 shadow-lg text-white flex flex-col gap-4 md:w-72 w-full'>
+          <div className='flex justify-between items-center'>
+            <div>
+              <h3 className='text-gray-300 text-md uppercase'>Total Tasks</h3>
+              <p className='text-3xl font-semibold'>{stats.totalTasks}</p>
             </div>
-            <MdTask className='bg-blue-300 text-white rounded-full text-5xl p-3 shadow-lg' />
+            <MdTask className='bg-white text-blue-700 rounded-full text-6xl p-3 shadow-lg' />
           </div>
           <div className='flex gap-2 text-sm'>
-            <span className='text-blue-300 flex items-center'>
+            <span className='text-blue-200 flex items-center'>
               <HiArrowNarrowUp />
               {stats.totalTasks}
             </span>
-            <div className='text-gray-500'>Last Month Task</div>
+            <div className='text-gray-300'>Last Month Task</div>
           </div>
         </div>
-        <div className='flex flex-col p-3 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md'>
-          <div className='flex justify-between'>
-            <div className=''>
-              <h3 className='text-gray-500 text-md uppercase'>Completed Tasks</h3>
-              <p className='text-2xl'>{stats.completedTasks}</p>
+
+        {/* Completed Tasks Card */}
+        <div className='bg-gradient-to-r from-green-700 via-green-600 to-green-500 p-6 rounded-xl border-2 border-green-300 shadow-lg text-white flex flex-col gap-4 md:w-72 w-full'>
+          <div className='flex justify-between items-center'>
+            <div>
+              <h3 className='text-gray-300 text-md uppercase'>Completed Tasks</h3>
+              <p className='text-3xl font-semibold'>{stats.completedTasks}</p>
             </div>
-            <IoCheckmarkDoneCircle className='bg-blue-300 text-white rounded-full text-5xl p-3 shadow-lg' />
+            <IoCheckmarkDoneCircle className='bg-white text-green-700 rounded-full text-6xl p-3 shadow-lg' />
           </div>
           <div className='flex gap-2 text-sm'>
-            <span className='text-blue-300 flex items-center'>
+            <span className='text-green-200 flex items-center'>
               <HiArrowNarrowUp />
               {stats.completedTasks}
             </span>
-            <div className='text-gray-500'>Last Month Task</div>
+            <div className='text-gray-300'>Last Month Task</div>
           </div>
         </div>
-        <div className='flex flex-col p-3 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md'>
-          <div className='flex justify-between'>
-            <div className=''>
-              <h3 className='text-gray-500 text-md uppercase'>Pending Tasks</h3>
-              <p className='text-2xl'>{stats.pendingTasks}</p>
+
+        {/* Pending Tasks Card */}
+        <div className='bg-gradient-to-r from-red-700 via-red-600 to-red-500 p-6 rounded-xl border-2 border-red-300 shadow-lg text-white flex flex-col gap-4 md:w-72 w-full'>
+          <div className='flex justify-between items-center'>
+            <div>
+              <h3 className='text-gray-300 text-md uppercase'>Pending Tasks</h3>
+              <p className='text-3xl font-semibold'>{stats.pendingTasks}</p>
             </div>
-            <MdPending className='bg-blue-300 text-white rounded-full text-5xl p-3 shadow-lg' />
+            <MdPending className='bg-white text-red-700 rounded-full text-6xl p-3 shadow-lg' />
           </div>
           <div className='flex gap-2 text-sm'>
-            <span className='text-blue-300 flex items-center'>
+            <span className='text-red-200 flex items-center'>
               <HiArrowNarrowUp />
               {stats.pendingTasks}
             </span>
-            <div className='text-gray-500'>Last Month Task</div>
+            <div className='text-gray-300'>Last Month Task</div>
           </div>
         </div>
       </div>
-      {error && <p className="text-red-500 text-center">{error}</p>}
+      {error && <p className="text-red-400 text-center mt-4">{error}</p>}
     </div>
   );
 }

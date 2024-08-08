@@ -6,7 +6,6 @@ import DashBoard from "../components/DashBoard";
 import RecentTask from "../components/RecentTask";
 import SideBar from "../components/SideBar";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-
 import CreateTask from "../components/CreateTask";
 import Task from "../components/Task";
 import EditTask from "../components/EditTask";
@@ -19,9 +18,10 @@ function Home() {
   const [tab, setTab] = useState("dashboard");
   const location = useLocation();
   const navigate = useNavigate();
-  const {currentUser}=useSelector(state=>state.user)
+  const { currentUser } = useSelector(state => state.user);
+
   const handleShowMenu = () => {
-    setShowMenu((prev) => !prev);
+    setShowMenu(prev => !prev);
   };
 
   useEffect(() => {
@@ -34,32 +34,35 @@ function Home() {
     setTab(tabFromUrl);
   }, [location.search, navigate]);
 
-
-  if(!currentUser){
-    return(
-       <div className="w-full h-screen flex-col flex justify-center items-center bg-slate-900 text-white font-semibold
-       text-3xl">
-             <p>Sign in First to use our services</p>
-             <Link to="/signin"><button className="px-4 py-3 rounded-xl border-[1px] border-blue-300 hover:bg-blue-300 mt-5">Sign In</button></Link>
-       </div>
-    )
+  if (!currentUser) {
+    return (
+      <div className="flex flex-col justify-center items-center min-h-screen bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-white font-semibold text-3xl">
+        <p>Sign in first to use our services</p>
+        <Link to="/signin">
+          <button className="mt-5 px-6 py-3 rounded-lg bg-gradient-to-r from-pink-500 via-purple-500 to-purple-600 text-white font-bold shadow-md hover:from-pink-600 hover:via-purple-600 hover:to-purple-700 transition duration-300">
+            Sign In
+          </button>
+        </Link>
+      </div>
+    );
   }
+
   return (
-    <div className="bg-slate-900 box-border min-h-screen w-full text-white">
-      <div className="flex justify-between items-center p-4">
-        <div className="border-2 font-semibold backdrop-blur-md rounded-full p-2">
+    <div className="bg-gradient-to-r from-pink-200 via-purple-300 to-purple-400 min-h-screen text-white">
+      <div className="flex justify-between items-center p-4  ">
+        <div className=" font-semibold backdrop-blur-md rounded-full p-2 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500">
           <span className="text-3xl text-blue-300 font-bold">T</span>m
         </div>
-        <div onClick={handleShowMenu} className="text-3xl cursor-pointer lg:hidden">
+        <div onClick={handleShowMenu} className="text-3xl bg-transparent cursor-pointer lg:hidden">
           {showMenu ? <RxCross2 /> : <HiOutlineMenuAlt1 />}
         </div>
       </div>
-      <div className="">{showMenu && <HamburgerMenu />}</div>
-      <div className="w-[100vw] flex">
-        <div className="hidden lg:inline shadow-md shadow-gray-800 border-blue-300 min-h-screen min-w-[20%]">
+      {showMenu && <HamburgerMenu />}
+      <div className="flex ">
+        <div className="hidden lg:block lg:w-1/5  min-h-screen">
           <SideBar />
         </div>
-        <div className="lg:w-[80%] w-full">
+        <div className="lg:w-4/5 w-full p-6">
           {tab === "dashboard" && (
             <>
               <DashBoard />
